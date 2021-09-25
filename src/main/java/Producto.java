@@ -3,7 +3,7 @@ public class Producto {
     private int numVendas;
     private double precio;
 
-    public void crearProducto(String nombre, double precio){
+    public Producto(String nombre, double precio){
         this.nombre=nombre;
         this.numVendas=0;
         this.precio = precio;
@@ -12,14 +12,17 @@ public class Producto {
     public int getNumVendas(){
         return numVendas;
     }
+    public double getPrecio(){
+        return precio;
+    }
     public void incrementarNumVendas(int cantidad){
         numVendas+=cantidad;
     }
-    public int compareTo(Figura f){
-        if(f.area()>this.area()) {
+    public int compareTo(Producto p){
+        if(p.getNumVendas()>this.numVendas) {
             return -1;
         }
-        else if (f.area()==this.area()){
+        else if (p.getNumVendas()==this.numVendas){
             return 0;
         }
         else{

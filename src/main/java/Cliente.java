@@ -2,12 +2,17 @@ import java.util.ArrayList;
 
 public class Cliente {
     String nombre;
-    ArrayList<Pedido> pedidosRealizados;
-    public void cliente(String nombre){
-        this.nombre=nombre;
+    ArrayList<String> pedidosRealizados=new ArrayList<>();
+
+    Cliente(String nombre) {
+        this.nombre = nombre;
     }
 
-    public ArrayList<Pedido> listarPedidos(){
+    public ArrayList<String> listarPedidos() {
         return pedidosRealizados;
+    }
+
+    public void añadirPedido(String pedidoRealizado) {
+        pedidosRealizados.add(pedidoRealizado);
     }
 }
