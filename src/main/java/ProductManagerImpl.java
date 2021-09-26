@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class ProductManagerImpl implements ProductManager {
     Queue<Pedido> servicio= new LinkedList<Pedido>();
@@ -15,8 +12,10 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public ArrayList<Producto> listarProductosOrdenados(ArrayList<Producto> lista) {
-        return null;
+    public ArrayList<Producto> listarProductosOrdenados() {
+        ArrayList<Producto> productosPrecio = new ArrayList<Producto>(catalogoProductos.values());
+        Collections.sort(productosPrecio);
+        return productosPrecio;
     }
 
     @Override
@@ -35,13 +34,15 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public ArrayList<Pedido> listadoPedidosCliente(Cliente cliente) {
-        return null;
+    public ArrayList<String> listadoPedidosCliente(Cliente cliente) {
+        return cliente.listarPedidos();
     }
 
     @Override
-    public ArrayList<Producto> listarProductosVendas(ArrayList<Producto> lista) {
-        return null;
+    public ArrayList<Producto> listarProductosVendas() {
+        ArrayList<Producto> productosVendas = new ArrayList<Producto>(catalogoProductos.values());
+        Collections.sort(productosVendas,new CompararProductosVendas());
+        return productosVendas;
     }
 
     public static void main(String[] args) {
@@ -53,20 +54,29 @@ public class ProductManagerImpl implements ProductManager {
 
 
         System.out.println(manager.numPedidos());
-        String[][] pedido= {{"Bocadillo","Ensalada"},{"2","1"}};
+        String[] pedido= {"Bocadillo/2","Ensalada/1"};
         manager.realizarPedido(new Pedido(clientes.get("Julia"),pedido));
         System.out.println(manager.numPedidos());
         manager.servirPedido();
         System.out.println(manager.numPedidos());
         Cliente client=clientes.get("Julia");
-        System.out.println(client.listarPedidos());
+        System.out.println(manager.listadoPedidosCliente(client));
 
-        String[][] pedido2= {{"Bocadillo","Ensalada"},{"2","3"}};
+        String[] pedido2= {"Bocadillo/3"};
         manager.realizarPedido(new Pedido(client,pedido2));
         System.out.println(manager.numPedidos());
         manager.servirPedido();
         System.out.println(manager.numPedidos());
         System.out.println(client.listarPedidos());
+        ArrayList<Producto> precios= manager.listarProductosOrdenados();
+        for (Producto p : precios) {
+            System.out.println(p.getNombre()+" Precio "+p.getPrecio()+" Vendas "+p.getNumVendas());
+        }
+        ArrayList<Producto> vendas = manager.listarProductosVendas();
+        for (Producto p : vendas) {
+            System.out.println(p.getNombre()+" Precio "+p.getPrecio()+" Vendas "+p.getNumVendas());
+        }
+
 
 
 

@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class Pedido {
     Cliente cliente;
-    String comanda[][];//poducto, cantidad
+    String comanda[];//poducto, cantidad
     String pedido;
     Double factura;
 
-    Pedido(Cliente cliente,String comanda[][]){
+    Pedido(Cliente cliente,String comanda[]){
         this.cliente=cliente;
         this.comanda=comanda;
         this.pedido="Pedido realizado -> "+ LocalDateTime.now()+"\n";
@@ -17,10 +17,11 @@ public class Pedido {
     public void servirPedido(HashMap<String,Producto> catalogoProductos){
 
         for (int i=0;i< comanda.length;i++){
-            Producto producto = catalogoProductos.get(comanda[0][i]);
-            producto.incrementarNumVendas(Integer.parseInt (comanda[1][i]));
-            this.pedido+=comanda[0][i] + " x "+comanda[1][i]+"\n";
-            this.factura+= Double.parseDouble(comanda[1][i])*producto.getPrecio();
+            String[] elemento= comanda[i].split("/");
+            Producto producto = catalogoProductos.get(elemento[0]);
+            producto.incrementarNumVendas(Integer.parseInt (elemento[1]));
+            this.pedido+=elemento[0] + " x "+elemento[1]+"\n";
+            this.factura+= Double.parseDouble(elemento[1])*producto.getPrecio();
         }
         this.pedido+="Precio total: "+ factura+"\nEntrega realizada -> "+LocalDateTime.now();
         cliente.añadirPedido(pedido);

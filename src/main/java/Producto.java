@@ -1,4 +1,4 @@
-public class Producto {
+public class Producto implements Comparable<Producto>{
     private String nombre;
     private int numVendas;
     private double precio;
@@ -7,6 +7,9 @@ public class Producto {
         this.nombre=nombre;
         this.numVendas=0;
         this.precio = precio;
+    }
+    public String getNombre(){
+        return this.nombre;
     }
 
     public int getNumVendas(){
@@ -19,10 +22,10 @@ public class Producto {
         numVendas+=cantidad;
     }
     public int compareTo(Producto p){
-        if(p.getNumVendas()>this.numVendas) {
+        if(p.getPrecio()>this.precio) {
             return -1;
         }
-        else if (p.getNumVendas()==this.numVendas){
+        else if (p.getPrecio()==this.precio){
             return 0;
         }
         else{
@@ -30,4 +33,5 @@ public class Producto {
         }
 
     }
+
 }
