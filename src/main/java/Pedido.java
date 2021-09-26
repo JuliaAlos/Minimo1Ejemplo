@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Pedido {
-    Cliente cliente;
-    String comanda[];//poducto, cantidad
-    String pedido;
-    Double factura;
+    private Cliente cliente;
+    private String comanda[];//poducto, cantidad
+    private String pedido;
+    private Double factura;
 
     Pedido(Cliente cliente,String comanda[]){
         this.cliente=cliente;

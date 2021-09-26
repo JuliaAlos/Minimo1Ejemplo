@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Cliente {
-    String nombre;
-    ArrayList<String> pedidosRealizados=new ArrayList<>();
+    private String nombre;
+    private ArrayList<String> pedidosRealizados=new ArrayList<>();
 
     Cliente(String nombre) {
         this.nombre = nombre;
