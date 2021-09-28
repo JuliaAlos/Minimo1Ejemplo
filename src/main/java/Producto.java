@@ -31,6 +31,7 @@ public class Producto implements Comparable<Producto>{
         else{
             return 1;
         }
+        /*return (int) p.getPrecio()-this.precio;*/
 
     }
 

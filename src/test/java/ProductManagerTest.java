@@ -5,50 +5,58 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProductManagerTest {
-    HashMap<String,Cliente> clientes;
     ProductManagerImpl manager;
 
     @After
+    public void tearDown() {
+        this.manager=null;
+    }
 
 
     @Before
-    public void settup() {
+    public void setUp() {
         //Añadir productos a la carta
         this.manager = new ProductManagerImpl();
         this.manager.añadirProductos("Bocadillo",2.99);
         this.manager.añadirProductos("Ensalada",2.50);
 
         //Crear clientes
-        this.clientes = new HashMap<>();
-        this.clientes.put("Julia",new Cliente("Julia"));
-        this.clientes.put("Paco",new Cliente("Paco"));
-        this.clientes.put("Lorena",new Cliente("Lorena"));
+        this.manager.addCliente("Julia");
+        this.manager.addCliente("Paco");
+        this.manager.addCliente("Lorena");
     }
 
     @Test
     public void testRealizarPedido(){
         //Primer pedido
         Assert.assertEquals(0,manager.numPedidos(),0);
-        String[] pedido= {"Bocadillo/2","Ensalada/1"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Julia"),pedido));
+        Pedido p = new Pedido(manager.buscarCliente("Julia"));
+        p.addLP(3, "Bocadillo");
+        p.addLP(1, "Ensalada");
+        this.manager.realizarPedido(p);
         Assert.assertEquals(1,manager.numPedidos(),0);
 
         //Segundo pedido
-        String[] pedido2= {"Bocadillo/3"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Lorena"),pedido2));
+        Pedido p2 = new Pedido(manager.buscarCliente("Julia"));
+        p2.addLP(2, "Bocadillo");
+        this.manager.realizarPedido(p2);
         Assert.assertEquals(2,manager.numPedidos(),0);
     }
 
     @Test
     public void testServirPedido(){
         //Realizar pedido
-        String[] pedido= {"Bocadillo/2","Ensalada/1"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Julia"),pedido));
+        Pedido p = new Pedido(manager.buscarCliente("Julia"));
+        p.addLP(3, "Bocadillo");
+        p.addLP(1, "Ensalada");
+        this.manager.realizarPedido(p);
 
-        String[] pedido2= {"Bocadillo/3"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Lorena"),pedido2));
+        Pedido p2 = new Pedido(manager.buscarCliente("Julia"));
+        p2.addLP(2, "Bocadillo");
+        this.manager.realizarPedido(p2);
 
         //Servir pedido
         Assert.assertEquals(2,manager.numPedidos(),0);
@@ -67,11 +75,14 @@ public class ProductManagerTest {
     @Test
     public void testListarProductosVendas(){
         //Realizar pedido
-        String[] pedido= {"Bocadillo/2","Ensalada/1"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Julia"),pedido));
+        Pedido p = new Pedido(manager.buscarCliente("Julia"));
+        p.addLP(3, "Bocadillo");
+        p.addLP(1, "Ensalada");
+        this.manager.realizarPedido(p);
 
-        String[] pedido2= {"Bocadillo/3"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Lorena"),pedido2));
+        Pedido p2 = new Pedido(manager.buscarCliente("Julia"));
+        p2.addLP(2, "Bocadillo");
+        this.manager.realizarPedido(p2);
 
         //Servir pedido
         this.manager.servirPedido();
@@ -87,18 +98,21 @@ public class ProductManagerTest {
     @Test
     public void testListadoPedidosClientes(){
         //Realizar pedido
-        String[] pedido= {"Bocadillo/2","Ensalada/1"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Julia"),pedido));
+        Pedido p = new Pedido(manager.buscarCliente("Julia"));
+        p.addLP(3, "Bocadillo");
+        p.addLP(1, "Ensalada");
+        this.manager.realizarPedido(p);
 
-        String[] pedido2= {"Bocadillo/3"};
-        this.manager.realizarPedido(new Pedido(this.clientes.get("Lorena"),pedido2));
+        Pedido p2 = new Pedido(manager.buscarCliente("Lorena"));
+        p2.addLP(2, "Bocadillo");
+        this.manager.realizarPedido(p2);
 
         //Servir pedido
         this.manager.servirPedido();
         this.manager.servirPedido();
 
         //Comprobar lista
-        ArrayList<String> pedidos= this.manager.listadoPedidosCliente(this.clientes.get("Julia"));
+        List<String> pedidos= this.manager.listadoPedidosCliente("Julia");
         Assert.assertEquals(1,pedidos.size());
         System.out.println(pedidos.get(0));
     }

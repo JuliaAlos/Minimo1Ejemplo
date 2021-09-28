@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ProductManager {
 
-    public ArrayList<Producto> listarProductosOrdenados();
+    public List<Producto> listarProductosOrdenados();
     public void realizarPedido(Pedido pedido);
     public void servirPedido();
-    public ArrayList<String> listadoPedidosCliente(Cliente cliente);
-    public ArrayList<Producto> listarProductosVendas();
+    public List<String> listadoPedidosCliente(String cliente);
+    public List<Producto> listarProductosVendas();
 
 }
