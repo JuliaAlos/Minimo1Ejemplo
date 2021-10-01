@@ -22,16 +22,7 @@ public class Producto implements Comparable<Producto>{
         numVendas+=cantidad;
     }
     public int compareTo(Producto p){
-        if(p.getPrecio()>this.precio) {
-            return -1;
-        }
-        else if (p.getPrecio()==this.precio){
-            return 0;
-        }
-        else{
-            return 1;
-        }
-        /*return (int) p.getPrecio()-this.precio;*/
+        return Double.compare(this.precio, p.getPrecio());
 
     }
 

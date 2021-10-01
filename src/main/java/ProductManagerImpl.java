@@ -47,7 +47,6 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public ArrayList<Producto> listarProductosVendas() {
         ArrayList<Producto> productosVendas = new ArrayList<Producto>(catalogoProductos.values());
-        //Collections.sort(productosVendas,new CompararProductosVendas());
         Collections.sort(productosVendas,
                 (Producto o1, Producto o2)->Integer.compare(o2.getNumVendas(), o1.getNumVendas()));
 
