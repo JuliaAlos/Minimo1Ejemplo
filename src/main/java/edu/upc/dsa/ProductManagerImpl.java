@@ -1,9 +1,26 @@
+package edu.upc.dsa;
+
 import java.util.*;
+import org.apache.log4j.Logger;
 
 public class ProductManagerImpl implements ProductManager {
     private Queue<Pedido> servicio= new LinkedList<Pedido>();
     private HashMap<String,Producto> catalogoProductos = new HashMap<>();
     private HashMap<String,Cliente> clientes = new HashMap<>();
+
+    final static Logger logger = Logger.getLogger(ProductManagerImpl.class);
+
+    private static ProductManagerImpl manager;
+
+    private ProductManagerImpl(){}
+
+    public static ProductManagerImpl getInstance(){
+        if(manager==null){
+            logger.info("Nova intancia edu.upc.dsa.ProductManagerImpl");
+            manager = new ProductManagerImpl();
+        }
+        return manager;
+    }
 
     public int numPedidos(){
         return servicio.size();

@@ -1,3 +1,5 @@
+package edu.upc.dsa;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ public class Pedido {
 
     Pedido(Cliente cliente){
         this.cliente=cliente;
-        this.pedido="Pedido realizado -> "+ LocalDateTime.now()+"\n";
+        this.pedido="edu.upc.dsa.Pedido realizado -> "+ LocalDateTime.now()+"\n";
         this.factura=0.0;
     }
 

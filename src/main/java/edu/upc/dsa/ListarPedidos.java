@@ -1,3 +1,5 @@
+package edu.upc.dsa;
+
 public class ListarPedidos {
     private int cantidad;
     private String nombre;
